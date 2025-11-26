@@ -1,0 +1,331 @@
+/* ===== RESET SIMPLES ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* ===== CONTAINER GERAL ===== */
+.app-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ===== CABEÇALHO ===== */
+/* ===== CABEÇALHO ===== */
+.app-header {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  color: #111827;
+}
+
+/* Link "Sair" no canto direito */
+.app-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.link-sair {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ef4444;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #fecaca;
+  background-color: #fef2f2;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.link-sair:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.25);
+}
+
+
+
+/* ===== LAYOUT PRINCIPAL (FORM + LISTA) ===== */
+.layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Em telas menores, empilha um abaixo do outro */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  padding: 20px 20px 16px;
+}
+
+.card-form {
+  flex: 1;
+  min-width: 260px;
+}
+
+.card-list {
+  flex: 2;
+}
+
+/* ===== TÍTULOS SECUNDÁRIOS ===== */
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+/* ===== FORMULÁRIO ===== */
+form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+form label span {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="date"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* Linha dos botões do formulário */
+.linha-botoes-form {
+  margin-top: 4px;
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background-color: #f3f4f6;
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+/* ===== BLOCO DE BUSCA ===== */
+.bloco-busca {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.bloco-busca label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.bloco-busca input[type="text"] {
+  margin-top: 4px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  min-width: 220px;
+  font-size: 14px;
+}
+
+.bloco-busca input[type="text"]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* ===== TABELA ===== */
+.table-wrapper {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+thead {
+  background-color: #f9fafb;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  font-weight: 600;
+  color: #4b5563;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+tbody tr:hover {
+  background-color: #eff6ff;
+}
+
+/* Coluna de ações */
+td.acoes {
+  white-space: nowrap;
+  display: flex;
+  gap: 6px;
+}
+
+/* ===== PÁGINA DE LOGIN ===== */
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  padding: 16px;
+}
+
+.login-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+  padding: 24px 24px 20px;
+  max-width: 380px;
+  width: 100%;
+}
+
+.login-card h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.login-card form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.login-card form label span {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.msg-erro {
+  font-size: 13px;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+}
+

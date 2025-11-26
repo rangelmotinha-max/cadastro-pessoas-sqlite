@@ -1,82 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Cadastro de Pessoas</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    form { margin-bottom: 20px; }
-    label { display: block; margin-top: 10px; }
-    input { padding: 5px; width: 300px; }
-    button { margin-top: 10px; padding: 5px 10px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background-color: #f0f0f0; }
-    .linha-botoes-form { margin-top: 10px; }
-    .linha-botoes-form button { margin-right: 10px; }
-    .bloco-busca { margin-top: 10px; margin-bottom: 10px; }
-  </style>
-</head>
-<body>
-  <h1>Cadastro de Pessoas</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cadastro de Pessoas</title>
+    <!-- Arquivo de estilos -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- CABEÇALHO COM BOTÃO SAIR -->
+      <header class="app-header">
+        <div class="app-header-left">
+          <h1>Cadastro de Pessoas</h1>
+        </div>
+        <div class="app-header-right">
+          <a href="/logout" class="link-sair">Sair</a>
+        </div>
+      </header>
 
-  <form id="formPessoa">
-    <input type="hidden" id="id" />
+      <main class="layout">
+        <!-- CARD DO FORMULÁRIO -->
+        <section class="card card-form">
+          <h2>Dados da pessoa</h2>
 
-    <label>
-      Nome:
-      <input type="text" id="nome" required />
-    </label>
+          <form id="formPessoa">
+            <input type="hidden" id="id" />
 
-    <label>
-      Email:
-      <input type="email" id="email" />
-    </label>
+            <label>
+              <span>Nome *</span>
+              <input type="text" id="nome" required />
+            </label>
 
-    <label>
-      Telefone:
-      <input type="text" id="telefone" />
-    </label>
+            <label>
+              <span>Email</span>
+              <input type="email" id="email" />
+            </label>
 
-    <label>
-      Data de Nascimento:
-      <input type="date" id="data_nascimento" />
-    </label>
+            <label>
+              <span>Telefone</span>
+              <input type="text" id="telefone" />
+            </label>
 
-    <div class="linha-botoes-form">
-      <button type="submit">Salvar</button>
-      <button type="button" id="btnCancelarEdicao" style="display:none;">Cancelar edição</button>
+            <label>
+              <span>Data de Nascimento</span>
+              <input type="date" id="data_nascimento" />
+            </label>
+
+            <div class="linha-botoes-form">
+              <button type="submit" class="btn btn-primary">Salvar</button>
+              <button
+                type="button"
+                id="btnCancelarEdicao"
+                class="btn btn-secondary"
+                style="display: none"
+              >
+                Cancelar edição
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- CARD DA LISTA -->
+        <section class="card card-list">
+          <h2>Lista de pessoas</h2>
+
+          <!-- BLOCO DE BUSCA -->
+          <div class="bloco-busca">
+            <div>
+              <label>
+                Buscar por nome
+                <br />
+                <input type="text" id="buscaNome" />
+              </label>
+            </div>
+
+            <div>
+              <button type="button" id="btnBuscar" class="btn btn-secondary">
+                Buscar
+              </button>
+              <button
+                type="button"
+                id="btnLimparBusca"
+                class="btn btn-secondary"
+              >
+                Limpar
+              </button>
+            </div>
+          </div>
+
+          <!-- TABELA -->
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nº</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                  <th>Data Nasc.</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaCorpo">
+                <!-- Linhas inseridas via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
     </div>
-  </form>
 
-  <h2>Lista de Pessoas</h2>
-
-  <!-- BLOCO DE BUSCA POR NOME -->
-  <div class="bloco-busca">
-    <label>
-      Buscar por nome:
-      <input type="text" id="buscaNome" />
-    </label>
-    <button type="button" id="btnBuscar">Buscar</button>
-    <button type="button" id="btnLimparBusca">Limpar</button>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Telefone</th>
-        <th>Data Nasc.</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="tabelaCorpo">
-      <!-- Linhas inseridas via JavaScript -->
-    </tbody>
-  </table>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

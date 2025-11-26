@@ -1,27 +1,83 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const db = require('./db');
 
 const app = express();
 const PORT = 3000;
 
-// Middleware para JSON (para ler o body das requisições)
+// ========== MIDDLEWARES BÁSICOS ==========
+
+// Para ler JSON (usado na API)
 app.use(express.json());
 
-// Servir arquivos estáticos (front-end em /public)
+// Para ler dados de formulários (login: application/x-www-form-urlencoded)
+app.use(express.urlencoded({ extended: true }));
+
+// Sessão
+app.use(
+  session({
+    secret: 'night-123-super-secreto', // em produção use algo mais forte
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+// ========== ROTAS DE AUTENTICAÇÃO (NÃO EXIGEM LOGIN) ==========
+
+// Página de login (primeira tela ao acessar o site)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'login.html'));
+});
+
+// Processar login
+app.post('/login', (req, res) => {
+  const { login, senha } = req.body;
+
+  // Credenciais fixas por enquanto
+  if (login === 'night' && senha === '123') {
+    req.session.autenticado = true;
+    return res.redirect('/cadastro');
+  }
+
+  // Se der errado, volta para login com indicador de erro
+  return res.redirect('/?erro=1');
+});
+
+// Logout (opcional, já deixo pronto)
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  });
+});
+
+// ========== ARQUIVOS ESTÁTICOS (CSS, JS, HTML etc.) ==========
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-/**
- * ROTAS DA API
- * A ordem importa:
- *  - /api/pessoas
- *  - /api/pessoas/busca
- *  - /api/pessoas/:id
- */
+// ========== MIDDLEWARE DE AUTENTICAÇÃO ==========
+
+function autenticar(req, res, next) {
+  if (req.session && req.session.autenticado) {
+    return next();
+  }
+  return res.redirect('/');
+}
+
+// ========== PÁGINA DE CADASTRO (PROTEGIDA) ==========
+
+// Só acessa /cadastro se estiver autenticado
+app.get('/cadastro', autenticar, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
+
+// Todas as rotas que começam com /api exigem login
+app.use('/api', autenticar);
+
+// ========== ROTAS DA API (CRUD PESSOAS + BUSCA) ==========
 
 // Listar todas as pessoas
 app.get('/api/pessoas', (req, res) => {
-  db.all('SELECT * FROM pessoas ORDER BY id DESC', [], (err, rows) => {
+  db.all('SELECT * FROM pessoas ORDER BY id ASC', [], (err, rows) => {
     if (err) {
       console.error('ERRO AO LISTAR PESSOAS:', err);
       return res.status(500).json({ error: 'Erro ao listar pessoas' });
@@ -45,7 +101,7 @@ app.get('/api/pessoas/busca', (req, res) => {
     SELECT *
     FROM pessoas
     WHERE nome LIKE ?
-    ORDER BY id DESC
+    ORDER BY id ASC
   `;
 
   const parametro = `%${termo}%`;
@@ -158,7 +214,7 @@ app.delete('/api/pessoas/:id', (req, res) => {
   });
 });
 
-// Iniciar servidor
+// ========== INICIAR SERVIDOR ==========
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

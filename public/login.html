@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - Sistema de Cadastro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <div class="login-card">
+        <h1>Login</h1>
+        <p class="login-subtitle">Acesse o sistema de cadastro de pessoas</p>
+
+        <!-- Mensagem de erro de login -->
+        <div id="msgErro" class="msg-erro" style="display: none">
+          Login ou senha inválidos.
+        </div>
+
+        <form action="/login" method="POST">
+          <label>
+            <span>Usuário</span>
+            <input type="text" name="login" required />
+          </label>
+
+          <label>
+            <span>Senha</span>
+            <input type="password" name="senha" required />
+          </label>
+
+          <button type="submit" class="btn btn-primary" style="margin-top: 12px">
+            Entrar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Se a URL tiver ?erro=1, mostra a mensagem de erro
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("erro") === "1") {
+        document.getElementById("msgErro").style.display = "block";
+      }
+    </script>
+  </body>
+</html>

@@ -95,24 +95,29 @@ function buscarPessoasPorNome(nome) {
 
 function desenharTabela(pessoas) {
   tabelaCorpo.innerHTML = '';
-  pessoas.forEach(pessoa => {
+
+  pessoas.forEach((pessoa, index) => {
     const tr = document.createElement('tr');
 
+    const numeroLinha = index + 1; // 1, 2, 3, 4...
+
     tr.innerHTML = `
-      <td>${pessoa.id}</td>
+      <td>${numeroLinha}</td>
       <td>${pessoa.nome}</td>
       <td>${pessoa.email || ''}</td>
       <td>${pessoa.telefone || ''}</td>
       <td>${pessoa.data_nascimento || ''}</td>
-      <td>
-        <button onclick="editarPessoa(${pessoa.id})">Editar</button>
-        <button onclick="excluirPessoa(${pessoa.id})">Excluir</button>
+      <td class="acoes">
+        <button class="btn btn-secondary" onclick="editarPessoa(${pessoa.id})">Editar</button>
+        <button class="btn btn-danger" onclick="excluirPessoa(${pessoa.id})">Excluir</button>
       </td>
     `;
 
     tabelaCorpo.appendChild(tr);
   });
 }
+
+
 
 // ========== FUNÇÕES CRUD (BACK-END) ==========
 
