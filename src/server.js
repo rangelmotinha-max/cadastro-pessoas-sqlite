@@ -5,19 +5,58 @@ const db = require('./db');
 const app = express();
 const PORT = 3000;
 
-// Middleware para JSON (para ler body das requisições)
+// Middleware para JSON (para ler o body das requisições)
 app.use(express.json());
 
-// Servir arquivos estáticos (front-end)
+// Servir arquivos estáticos (front-end em /public)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// ROTAS API
+/**
+ * ROTAS DA API
+ * A ordem importa:
+ *  - /api/pessoas
+ *  - /api/pessoas/busca
+ *  - /api/pessoas/:id
+ */
 
 // Listar todas as pessoas
 app.get('/api/pessoas', (req, res) => {
   db.all('SELECT * FROM pessoas ORDER BY id DESC', [], (err, rows) => {
     if (err) {
+      console.error('ERRO AO LISTAR PESSOAS:', err);
       return res.status(500).json({ error: 'Erro ao listar pessoas' });
+    }
+    res.json(rows);
+  });
+});
+
+// Buscar pessoas por nome (filtro)
+// Exemplo: GET /api/pessoas/busca?nome=jo
+app.get('/api/pessoas/busca', (req, res) => {
+  const { nome } = req.query; // pega ?nome=...
+  const termo = (nome || '').trim();
+
+  if (!termo) {
+    // Se não vier nome, devolve lista vazia
+    return res.json([]);
+  }
+
+  const sql = `
+    SELECT *
+    FROM pessoas
+    WHERE nome LIKE ?
+    ORDER BY id DESC
+  `;
+
+  const parametro = `%${termo}%`;
+
+  db.all(sql, [parametro], (err, rows) => {
+    if (err) {
+      console.error('ERRO SQLITE NA BUSCA:', err);
+      return res.status(500).json({
+        error: 'Erro ao buscar pessoas por nome',
+        details: err.message || String(err)
+      });
     }
     res.json(rows);
   });
@@ -26,8 +65,10 @@ app.get('/api/pessoas', (req, res) => {
 // Buscar uma pessoa por ID
 app.get('/api/pessoas/:id', (req, res) => {
   const { id } = req.params;
+
   db.get('SELECT * FROM pessoas WHERE id = ?', [id], (err, row) => {
     if (err) {
+      console.error('ERRO AO BUSCAR PESSOA POR ID:', err);
       return res.status(500).json({ error: 'Erro ao buscar pessoa' });
     }
     if (!row) {
@@ -52,6 +93,7 @@ app.post('/api/pessoas', (req, res) => {
 
   db.run(sql, [nome, email, telefone, data_nascimento], function (err) {
     if (err) {
+      console.error('ERRO AO INCLUIR PESSOA:', err);
       return res.status(500).json({ error: 'Erro ao incluir pessoa' });
     }
 
@@ -82,6 +124,7 @@ app.put('/api/pessoas/:id', (req, res) => {
 
   db.run(sql, [nome, email, telefone, data_nascimento, id], function (err) {
     if (err) {
+      console.error('ERRO AO ALTERAR PESSOA:', err);
       return res.status(500).json({ error: 'Erro ao alterar pessoa' });
     }
     if (this.changes === 0) {
@@ -104,6 +147,7 @@ app.delete('/api/pessoas/:id', (req, res) => {
 
   db.run('DELETE FROM pessoas WHERE id = ?', [id], function (err) {
     if (err) {
+      console.error('ERRO AO EXCLUIR PESSOA:', err);
       return res.status(500).json({ error: 'Erro ao excluir pessoa' });
     }
     if (this.changes === 0) {

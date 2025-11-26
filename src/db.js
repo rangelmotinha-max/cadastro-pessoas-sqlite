@@ -1,10 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-// Caminho do arquivo do banco
+// Caminho do arquivo do banco (database.sqlite na raiz do projeto)
 const dbPath = path.resolve(__dirname, '..', 'database.sqlite');
 
-// Cria/abre o banco
+// Cria/abre o banco de dados
 const db = new sqlite3.Database(dbPath);
 
 // Cria a tabela se não existir

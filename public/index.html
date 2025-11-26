@@ -12,6 +12,9 @@
     table { border-collapse: collapse; width: 100%; margin-top: 20px; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
     th { background-color: #f0f0f0; }
+    .linha-botoes-form { margin-top: 10px; }
+    .linha-botoes-form button { margin-right: 10px; }
+    .bloco-busca { margin-top: 10px; margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -40,11 +43,24 @@
       <input type="date" id="data_nascimento" />
     </label>
 
-    <button type="submit">Salvar</button>
-    <button type="button" id="btnCancelarEdicao" style="display:none;">Cancelar edição</button>
+    <div class="linha-botoes-form">
+      <button type="submit">Salvar</button>
+      <button type="button" id="btnCancelarEdicao" style="display:none;">Cancelar edição</button>
+    </div>
   </form>
 
   <h2>Lista de Pessoas</h2>
+
+  <!-- BLOCO DE BUSCA POR NOME -->
+  <div class="bloco-busca">
+    <label>
+      Buscar por nome:
+      <input type="text" id="buscaNome" />
+    </label>
+    <button type="button" id="btnBuscar">Buscar</button>
+    <button type="button" id="btnLimparBusca">Limpar</button>
+  </div>
+
   <table>
     <thead>
       <tr>
