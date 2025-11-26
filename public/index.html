@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Pessoas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { margin-bottom: 20px; }
+    label { display: block; margin-top: 10px; }
+    input { padding: 5px; width: 300px; }
+    button { margin-top: 10px; padding: 5px 10px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Pessoas</h1>
+
+  <form id="formPessoa">
+    <input type="hidden" id="id" />
+
+    <label>
+      Nome:
+      <input type="text" id="nome" required />
+    </label>
+
+    <label>
+      Email:
+      <input type="email" id="email" />
+    </label>
+
+    <label>
+      Telefone:
+      <input type="text" id="telefone" />
+    </label>
+
+    <label>
+      Data de Nascimento:
+      <input type="date" id="data_nascimento" />
+    </label>
+
+    <button type="submit">Salvar</button>
+    <button type="button" id="btnCancelarEdicao" style="display:none;">Cancelar edição</button>
+  </form>
+
+  <h2>Lista de Pessoas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Data Nasc.</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaCorpo">
+      <!-- Linhas inseridas via JavaScript -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
